@@ -113,6 +113,9 @@ const GroupMenu = () => {
       ) : (
         <p>No groups found.</p>
       )}
+      <Link to="/">
+        <button>Back</button>
+      </Link>
     </div>
   );
 };

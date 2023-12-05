@@ -50,6 +50,9 @@ const AddStudentForm = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/students');
+  };
 
   return (
     <div>
@@ -82,6 +85,7 @@ const AddStudentForm = () => {
         </label>
         <br />
         <button type="submit">Add Student</button>
+        <button type="button" onClick={handleCancel}>Cancel</button>
       </form>
     </div>
   );

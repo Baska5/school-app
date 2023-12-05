@@ -146,6 +146,9 @@ const StudentMenu = () => {
       ) : (
         <p>No students found.</p>
       )}
+      <Link to="/">
+        <button>Back</button>
+      </Link>
     </div>
   );
 };

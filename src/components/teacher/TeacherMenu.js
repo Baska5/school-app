@@ -146,6 +146,9 @@ const TeacherMenu = () => {
       ) : (
         <p>No teachers found.</p>
       )}
+      <Link to="/">
+        <button>Back</button>
+      </Link>
     </div>
   );
 };

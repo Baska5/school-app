@@ -49,6 +49,9 @@ const AddGroupForm = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/students');
+  };
 
   return (
     <div>
@@ -66,6 +69,7 @@ const AddGroupForm = () => {
         </label>
         <br />
         <button type="submit">Add Group</button>
+        <button type="button" onClick={handleCancel}>Cancel</button>
       </form>
     </div>
   );
