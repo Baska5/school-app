@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AddStudentForm = () => {
   const [formData, setFormData] = useState({
@@ -10,8 +10,8 @@ const AddStudentForm = () => {
     birthDate: '',
   });
 
+  const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,31 +33,38 @@ const AddStudentForm = () => {
       });
 
       if (response.ok) {
+        setFormData({
+          firstName: '',
+          lastName: '',
+          pin: '',
+          email: '',
+          birthDate: '',
+        });
         console.log('Student added successfully!');
-        // Redirect to student list
-        navigate('/students');
-      } const errorResponse = await response.json();
-      const { errors } = errorResponse;
-      if (errors && Array.isArray(errors)) {
+        setError(null);
+        setSuccessMessage('Student added successfully!');
+      } else if (response.status === 400){
+        setSuccessMessage(null);
+        const errorResponse = await response.json();
+        const { errors } = errorResponse;
         const errorMessage = errors.join(', ');
         setError(errorMessage);
       } else {
-        setError(errorResponse.message || 'Error updating student');
+        setSuccessMessage(null);
+        setError('Error adding student');
       }
     } catch (error) {
+      setSuccessMessage(null);
       setError('An unexpected error occurred');
       console.error('Error adding student:', error);
     }
-  };
-
-  const handleCancel = () => {
-    navigate('/students');
   };
 
   return (
     <div>
       <h2>Add New Student</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           First Name:
@@ -85,8 +92,10 @@ const AddStudentForm = () => {
         </label>
         <br />
         <button type="submit">Add Student</button>
-        <button type="button" onClick={handleCancel}>Cancel</button>
       </form>
+      <Link to="/students">
+        <button>Back</button>
+      </Link>
     </div>
   );
 };

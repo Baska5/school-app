@@ -28,8 +28,8 @@ const GroupMenu = () => {
   };
 
   useEffect(() => {
-    fetchData(); // Load initial data without any filter
-  }, []); // Empty dependency array ensures it only runs on mount
+    fetchData();
+  }, []);
 
   const handleUpdate = (group) => {
     console.log('Update group with ID:', group);
@@ -71,6 +71,14 @@ const GroupMenu = () => {
     setFilter(filterValue);
     fetchData(filterValue);
   };
+  
+  const handleAddStudents = (group) => {
+    navigate(`/${group.id}/students`, { state: { groupData: group } });
+  };
+
+  const handleAddTeachers = (group) => {
+    navigate(`/${group.id}/teachers`, { state: { groupData: group } });
+  };
 
   return (
     <div>
@@ -92,6 +100,10 @@ const GroupMenu = () => {
               <th>ID</th>
               <th>Group Name</th>
               <th>Group Number</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -105,6 +117,12 @@ const GroupMenu = () => {
                 </td>
                 <td>
                   <button onClick={() => handleDelete(group.id)}>Delete</button>
+                </td>
+                <td>
+                  <button onClick={() => handleAddStudents(group)}>Add Students</button>
+                </td>
+                <td>
+                  <button onClick={() => handleAddTeachers(group)}>Add Teachers</button>
                 </td>
               </tr>
             ))}

@@ -16,6 +16,9 @@ import GroupMenu from './components/group/GroupMenu';
 import AddGroupForm from './components/group/AddGroupForm';
 import UpdateGroupForm from './components/group/UpdateGroupForm';
 
+import EnrollStudentsMenu from './components/group-relations/EnrollStudentsMenu';
+import EnrollTeachersMenu from './components/group-relations/EnrollTeachersMenu';
+
 const App = () => {
   return (
     <Router>
@@ -34,6 +37,9 @@ const App = () => {
         <Route path="/groups" element={<GroupMenu />} />
         <Route path="/groups/add" element={<AddGroupForm />} />
         <Route path="/update-group/:groupId" element={<UpdateGroupForm />} />
+
+        <Route path="/:groupId/students" element={<EnrollStudentsMenu />} />
+        <Route path="/:groupId/teachers" element={<EnrollTeachersMenu />} />
       </Routes>
     </Router>
   );

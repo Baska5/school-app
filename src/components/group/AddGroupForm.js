@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AddGroupForm = () => {
   const [formData, setFormData] = useState({
@@ -7,8 +7,8 @@ const AddGroupForm = () => {
     groupNumber: 0
   });
 
+  const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,33 +30,35 @@ const AddGroupForm = () => {
       });
 
       if (response.ok) {
+        setFormData({
+          groupName: '',
+          groupNumber: 0
+        });
         console.log('Group added successfully!');
-        navigate('/groups');
-      } else {
+        setError(null);
+        setSuccessMessage('Group added successfully!');
+      } else if (response.status === 400){
+        setSuccessMessage(null);
         const errorResponse = await response.json();
         const { errors } = errorResponse;
-        if (errors && Array.isArray(errors)) {
-          const errorMessage = errors.join(', ');
-          setError(errorMessage);
-        } else {
-          setError(errorResponse.message || 'Error updating group');
-        }
-        console.error('Error updating group:', errorResponse);
+        const errorMessage = errors.join(', ');
+        setError(errorMessage);
+      } else {
+        setSuccessMessage(null);
+        setError('Error adding group');
       }
     } catch (error) {
+      setSuccessMessage(null);
       setError('An unexpected error occurred');
       console.error('Error adding group:', error);
     }
-  };
-
-  const handleCancel = () => {
-    navigate('/students');
   };
 
   return (
     <div>
       <h2>Add New Group</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Group Name:
@@ -69,8 +71,10 @@ const AddGroupForm = () => {
         </label>
         <br />
         <button type="submit">Add Group</button>
-        <button type="button" onClick={handleCancel}>Cancel</button>
       </form>
+      <Link to="/groups">
+        <button>Back</button>
+      </Link>
     </div>
   );
 };

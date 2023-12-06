@@ -44,19 +44,16 @@ const UpdateGroupForm = ({}) => {
         console.log('Group updated successfully!');
         setError(null);
         navigate('/groups');
-      } else {
+      } else if (response.status === 400){
         const errorResponse = await response.json();
         const { errors } = errorResponse;
-        if (errors && Array.isArray(errors)) {
-          const errorMessage = errors.join(', ');
-          setError(errorMessage);
-        } else {
-          setError(errorResponse.message || 'Error updating group');
-        }
-        console.error('Error updating group:', errorResponse);
+        const errorMessage = errors.join(', ');
+        setError(errorMessage);
+      } else {
+        setError('Error updating group');
       }
     } catch (error) {
-      setError('An unexpected error occurred');
+      setError('Error updating group');
       console.error('Error updating group:', error);
     }
   };

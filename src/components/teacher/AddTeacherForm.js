@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AddTeacherForm = () => {
   const [formData, setFormData] = useState({
@@ -10,8 +10,8 @@ const AddTeacherForm = () => {
     birthDate: '',
   });
 
+  const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,26 +33,38 @@ const AddTeacherForm = () => {
       });
 
       if (response.ok) {
+        setFormData({
+          firstName: '',
+          lastName: '',
+          pin: '',
+          email: '',
+          birthDate: '',
+        });
         console.log('Teacher added successfully!');
-        navigate('/teachers');
-      } else {
+        setError(null);
+        setSuccessMessage('Teacher added successfully!');
+      } else if (response.status === 400){
+        setSuccessMessage(null);
         const errorResponse = await response.json();
-        setError(errorResponse.message || 'Error adding teacher');
-        console.error('Error adding teacher:', errorResponse);
+        const { errors } = errorResponse;
+        const errorMessage = errors.join(', ');
+        setError(errorMessage);
+      } else {
+        setSuccessMessage(null);
+        setError('Error updating teacher');
       }
     } catch (error) {
+      setSuccessMessage(null);
       setError('An unexpected error occurred');
       console.error('Error adding teacher:', error);
     }
   };
 
-  const handleCancel = () => {
-    navigate('/students');
-  };
-
   return (
     <div>
       <h2>Add New Teacher</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           First Name:
@@ -80,8 +92,10 @@ const AddTeacherForm = () => {
         </label>
         <br />
         <button type="submit">Add Teacher</button>
-        <button type="button" onClick={handleCancel}>Cancel</button>
       </form>
+      <Link to="/teachers">
+        <button>Back</button>
+      </Link>
     </div>
   );
 };

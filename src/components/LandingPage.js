@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const LandingPage = () => {
   return (
     <div>
-      <h1>Welcome to Your App</h1>
+      <h1>Welcome to School Management System</h1>
       <div>
         <Link to="/students">
           <button>Students</button>

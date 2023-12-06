@@ -38,8 +38,8 @@ const TeacherMenu = () => {
   };
 
   useEffect(() => {
-    fetchData(); // Load initial data without any filter
-  }, []); // Empty dependency array ensures it only runs on mount
+    fetchData();
+  }, []);
 
   const handleUpdate = (teacher) => {
     console.log('Update teacher with ID:', teacher);

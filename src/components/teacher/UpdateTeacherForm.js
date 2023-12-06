@@ -50,19 +50,16 @@ const UpdateTeacherForm = ({}) => {
         console.log('Teacher updated successfully!');
         setError(null);
         navigate('/teachers');
-      } else {
+      } else if (response.status === 400) {
         const errorResponse = await response.json();
         const { errors } = errorResponse;
-        if (errors && Array.isArray(errors)) {
-          const errorMessage = errors.join(', ');
-          setError(errorMessage);
-        } else {
-          setError(errorResponse.message || 'Error updating teacher');
-        }
-        console.error('Error updating teacher:', errorResponse);
+        const errorMessage = errors.join(', ');
+        setError(errorMessage);
+      } else {
+        setError('Error updating teacher');
       }
     } catch (error) {
-      setError('An unexpected error occurred');
+      setError('Error updating teacher');
       console.error('Error updating teacher:', error);
     }
   };

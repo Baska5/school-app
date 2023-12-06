@@ -38,8 +38,8 @@ const StudentMenu = () => {
   };
 
   useEffect(() => {
-    fetchData(); // Load initial data without any filter
-  }, []); // Empty dependency array ensures it only runs on mount
+    fetchData();
+  }, []);
 
   const handleUpdate = (student) => {
     console.log('Update student with ID:', student);
