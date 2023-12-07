@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const StudentMenu = () => {
   const [students, setStudents] = useState([]);
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
-    firstName: '',
-    lastName: '',
-    pin: '',
-    birthDate: '',
+    firstName: "",
+    lastName: "",
+    pin: "",
+    birthDate: "",
   });
   const navigate = useNavigate();
 
-  const apiUrl = 'http://localhost:8080/students/search';
+  const apiUrl = "http://localhost:8080/students/search";
 
   const fetchData = async () => {
     try {
       const response = await fetch(
         `${apiUrl}?${Object.entries(filters)
           .map(([key, value]) => `${key}=${value}`)
-          .join('&')}`
+          .join("&")}`
       );
 
       if (response.ok) {
@@ -28,12 +28,12 @@ const StudentMenu = () => {
         setStudents(data);
       } else {
         const errorResponse = await response.json();
-        setError(errorResponse.message || 'Error fetching students');
-        console.error('Error fetching students:', errorResponse);
+        setError(errorResponse.message || "Error fetching students");
+        console.error("Error fetching students:", errorResponse);
       }
     } catch (error) {
-      setError('An unexpected error occurred');
-      console.error('Error fetching students:', error);
+      setError("An unexpected error occurred");
+      console.error("Error fetching students:", error);
     }
   };
 
@@ -42,14 +42,18 @@ const StudentMenu = () => {
   }, []);
 
   const handleUpdate = (student) => {
-    console.log('Update student with ID:', student);
-    navigate(`/update-student/${student.id}`, { state: { studentData: student } });
+    console.log("Update student with ID:", student);
+    navigate(`/update-student/${student.id}`, {
+      state: { studentData: student },
+    });
   };
 
   const handleDelete = async (studentId) => {
-    console.log('Delete student with ID:', studentId);
+    console.log("Delete student with ID:", studentId);
 
-    const shouldDelete = window.confirm('Are you sure you want to delete this student?');
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this student?"
+    );
 
     if (!shouldDelete) {
       return;
@@ -59,25 +63,30 @@ const StudentMenu = () => {
 
     try {
       const response = await fetch(apiUrl, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
-        console.log('Student deleted successfully!');
-        setStudents((prevStudents) => prevStudents.filter((student) => student.id !== studentId));
+        console.log("Student deleted successfully!");
+        setStudents((prevStudents) =>
+          prevStudents.filter((student) => student.id !== studentId)
+        );
       } else {
         const errorResponse = await response.json();
-        setError(errorResponse.message || 'Error deleting student');
-        console.error('Error deleting student:', errorResponse);
+        setError(errorResponse.message || "Error deleting student");
+        console.error("Error deleting student:", errorResponse);
       }
     } catch (error) {
-      setError('An unexpected error occurred');
-      console.error('Error deleting student:', error);
+      setError("An unexpected error occurred");
+      console.error("Error deleting student:", error);
     }
   };
 
   const handleFilterChange = (e, filterKey) => {
-    setFilters((prevFilters) => ({ ...prevFilters, [filterKey]: e.target.value }));
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterKey]: e.target.value,
+    }));
   };
 
   const handleFilterSubmit = (e) => {
@@ -91,19 +100,35 @@ const StudentMenu = () => {
       <form onSubmit={handleFilterSubmit}>
         <label>
           First Name:
-          <input type="text" value={filters.firstName} onChange={(e) => handleFilterChange(e, 'firstName')} />
+          <input
+            type="text"
+            value={filters.firstName}
+            onChange={(e) => handleFilterChange(e, "firstName")}
+          />
         </label>
         <label>
           Last Name:
-          <input type="text" value={filters.lastName} onChange={(e) => handleFilterChange(e, 'lastName')} />
+          <input
+            type="text"
+            value={filters.lastName}
+            onChange={(e) => handleFilterChange(e, "lastName")}
+          />
         </label>
         <label>
           PIN:
-          <input type="text" value={filters.pin} onChange={(e) => handleFilterChange(e, 'pin')} />
+          <input
+            type="text"
+            value={filters.pin}
+            onChange={(e) => handleFilterChange(e, "pin")}
+          />
         </label>
         <label>
           Birth Date:
-          <input type="text" value={filters.birthDate} onChange={(e) => handleFilterChange(e, 'birthDate')} />
+          <input
+            type="text"
+            value={filters.birthDate}
+            onChange={(e) => handleFilterChange(e, "birthDate")}
+          />
         </label>
         <button type="submit">Submit Filter</button>
       </form>
@@ -137,7 +162,9 @@ const StudentMenu = () => {
                   <button onClick={() => handleUpdate(student)}>Update</button>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(student.id)}>Delete</button>
+                  <button onClick={() => handleDelete(student.id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

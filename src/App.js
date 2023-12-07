@@ -15,6 +15,7 @@ import UpdateTeacherForm from './components/teacher/UpdateTeacherForm';
 import GroupMenu from './components/group/GroupMenu';
 import AddGroupForm from './components/group/AddGroupForm';
 import UpdateGroupForm from './components/group/UpdateGroupForm';
+import GroupDetailsMenu from './components/group/GroupDetailsMenu';
 
 import EnrollStudentsMenu from './components/group-relations/EnrollStudentsMenu';
 import EnrollTeachersMenu from './components/group-relations/EnrollTeachersMenu';
@@ -32,11 +33,12 @@ const App = () => {
 
         <Route path="/teachers" element={<TeacherMenu />} />
         <Route path="/teachers/add" element={<AddTeacherForm />} />
-        <Route path="/update-teacher/:teacherId" element={<UpdateTeacherForm />} />
+        <Route path="/update-teacher/:teacherId" element={<GroupDetailsMenu />} />
 
         <Route path="/groups" element={<GroupMenu />} />
         <Route path="/groups/add" element={<AddGroupForm />} />
         <Route path="/update-group/:groupId" element={<UpdateGroupForm />} />
+        <Route path="/groups/:groupId" element={<GroupDetailsMenu />} />
 
         <Route path="/:groupId/students" element={<EnrollStudentsMenu />} />
         <Route path="/:groupId/teachers" element={<EnrollTeachersMenu />} />

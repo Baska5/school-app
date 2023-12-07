@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const GroupMenu = () => {
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
 
-  const apiUrl = 'http://localhost:8080/groups/search';
+  const apiUrl = "http://localhost:8080/groups/search";
 
-  const fetchData = async (filterParam = '') => {
+  const fetchData = async (filterParam = "") => {
     try {
       const response = await fetch(`${apiUrl}?groupNumber=${filterParam}`);
       if (response.ok) {
@@ -18,12 +18,12 @@ const GroupMenu = () => {
         setGroups(data);
       } else {
         const errorResponse = await response.json();
-        setError(errorResponse.message || 'Error fetching groups');
-        console.error('Error fetching groups:', errorResponse);
+        setError(errorResponse.message || "Error fetching groups");
+        console.error("Error fetching groups:", errorResponse);
       }
     } catch (error) {
-      setError('An unexpected error occurred');
-      console.error('Error fetching groups:', error);
+      setError("An unexpected error occurred");
+      console.error("Error fetching groups:", error);
     }
   };
 
@@ -32,13 +32,15 @@ const GroupMenu = () => {
   }, []);
 
   const handleUpdate = (group) => {
-    console.log('Update group with ID:', group);
+    console.log("Update group with ID:", group);
     navigate(`/update-group/${group.id}`, { state: { groupData: group } });
   };
 
   const handleDelete = async (groupId) => {
-    console.log('Delete group with ID:', groupId);
-    const shouldDelete = window.confirm('Are you sure you want to delete this group?');
+    console.log("Delete group with ID:", groupId);
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this group?"
+    );
 
     if (!shouldDelete) {
       return;
@@ -48,20 +50,22 @@ const GroupMenu = () => {
 
     try {
       const response = await fetch(deleteUrl, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
-        console.log('Group deleted successfully!');
-        setGroups((prevGroups) => prevGroups.filter((group) => group.id !== groupId));
+        console.log("Group deleted successfully!");
+        setGroups((prevGroups) =>
+          prevGroups.filter((group) => group.id !== groupId)
+        );
       } else {
         const errorResponse = await response.json();
-        setError(errorResponse.message || 'Error deleting group');
-        console.error('Error deleting group:', errorResponse);
+        setError(errorResponse.message || "Error deleting group");
+        console.error("Error deleting group:", errorResponse);
       }
     } catch (error) {
-      setError('An unexpected error occurred');
-      console.error('Error deleting group:', error);
+      setError("An unexpected error occurred");
+      console.error("Error deleting group:", error);
     }
   };
 
@@ -71,13 +75,17 @@ const GroupMenu = () => {
     setFilter(filterValue);
     fetchData(filterValue);
   };
-  
+
   const handleAddStudents = (group) => {
     navigate(`/${group.id}/students`, { state: { groupData: group } });
   };
 
   const handleAddTeachers = (group) => {
     navigate(`/${group.id}/teachers`, { state: { groupData: group } });
+  };
+
+  const handleDetails = (group) => {
+    navigate(`/groups/${group.id}`, { state: { groupData: group } });
   };
 
   return (
@@ -104,6 +112,7 @@ const GroupMenu = () => {
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -119,10 +128,17 @@ const GroupMenu = () => {
                   <button onClick={() => handleDelete(group.id)}>Delete</button>
                 </td>
                 <td>
-                  <button onClick={() => handleAddStudents(group)}>Add Students</button>
+                  <button onClick={() => handleAddStudents(group)}>
+                    Add Students
+                  </button>
                 </td>
                 <td>
-                  <button onClick={() => handleAddTeachers(group)}>Add Teachers</button>
+                  <button onClick={() => handleAddTeachers(group)}>
+                    Add Teachers
+                  </button>
+                </td>
+                <td>
+                  <button onClick={() => handleDetails(group)}>Details</button>
                 </td>
               </tr>
             ))}
