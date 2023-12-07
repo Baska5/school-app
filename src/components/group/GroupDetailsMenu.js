@@ -1,11 +1,11 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const GroupDetailsMenu = () => {
   const location = useLocation();
   const { groupData } = location.state || {};
-  const [teachers, setTeachers] = useState(groupData.teachers);
-  const [students, setStudents] = useState(groupData.students);
+  const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -25,37 +25,55 @@ const GroupDetailsMenu = () => {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleRemoveTeacher = async (teacherId) => {
+    const shouldDelete = window.confirm(
+      "Are you sure you want to remove this teacher from group?"
+    );
+    if (!shouldDelete) {
+      return;
+    }
     try {
       const apiUrl = `http://localhost:8080/groups/${groupData.id}/teacher/${teacherId}`;
       const response = await fetch(apiUrl, { method: "DELETE" });
 
       if (response.ok) {
         console.log("Teacher removed successfully!");
-        fetchData();
       } else {
         const errorResponse = await response.json();
         console.error("Error removing teacher:", errorResponse);
       }
     } catch (error) {
       console.error("Unexpected error removing teacher:", error);
+    } finally {
+      fetchData();
     }
   };
 
   const handleRemoveStudent = async (studentId) => {
+    const shouldDelete = window.confirm(
+      "Are you sure you want to remove this student from group?"
+    );
+    if (!shouldDelete) {
+      return;
+    }
     try {
       const apiUrl = `http://localhost:8080/groups/${groupData.id}/student/${studentId}`;
       const response = await fetch(apiUrl, { method: "DELETE" });
 
       if (response.ok) {
         console.log("Student removed successfully!");
-        fetchData();
       } else {
         const errorResponse = await response.json();
         console.error("Error removing student:", errorResponse);
       }
     } catch (error) {
       console.error("Unexpected error removing student:", error);
+    } finally {
+      fetchData();
     }
   };
 

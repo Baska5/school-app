@@ -42,7 +42,7 @@ const TeacherMenu = () => {
   }, []);
 
   const handleUpdate = (teacher) => {
-    console.log("Update teacher with ID:", teacher);
+    console.log("Update teacher with ID:", teacher.id);
     navigate(`/update-teacher/${teacher.id}`, {
       state: { teacherData: teacher },
     });

@@ -33,7 +33,7 @@ const App = () => {
 
         <Route path="/teachers" element={<TeacherMenu />} />
         <Route path="/teachers/add" element={<AddTeacherForm />} />
-        <Route path="/update-teacher/:teacherId" element={<GroupDetailsMenu />} />
+        <Route path="/update-teacher/:teacherId" element={<UpdateTeacherForm />} />
 
         <Route path="/groups" element={<GroupMenu />} />
         <Route path="/groups/add" element={<AddGroupForm />} />
