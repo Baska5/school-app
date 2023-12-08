@@ -95,48 +95,58 @@ const TeacherMenu = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Teacher Menu</h2>
-      <form onSubmit={handleFilterSubmit}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            value={filters.firstName}
-            onChange={(e) => handleFilterChange(e, "firstName")}
-          />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            value={filters.lastName}
-            onChange={(e) => handleFilterChange(e, "lastName")}
-          />
-        </label>
-        <label>
-          PIN:
-          <input
-            type="text"
-            value={filters.pin}
-            onChange={(e) => handleFilterChange(e, "pin")}
-          />
-        </label>
-        <label>
-          Birth Date:
-          <input
-            type="text"
-            value={filters.birthDate}
-            onChange={(e) => handleFilterChange(e, "birthDate")}
-          />
-        </label>
-        <button type="submit">Submit Filter</button>
+      <form onSubmit={handleFilterSubmit} className="mb-3">
+        <div className="row g-2">
+          <div className="col-md-3">
+            <input
+              type="text"
+              value={filters.firstName}
+              onChange={(e) => handleFilterChange(e, "firstName")}
+              className="form-control"
+              placeholder="First Name"
+            />
+          </div>
+          <div className="col-md-3">
+            <input
+              type="text"
+              value={filters.lastName}
+              onChange={(e) => handleFilterChange(e, "lastName")}
+              className="form-control"
+              placeholder="Last Name"
+            />
+          </div>
+          <div className="col-md-2">
+            <input
+              type="text"
+              value={filters.pin}
+              onChange={(e) => handleFilterChange(e, "pin")}
+              className="form-control"
+              placeholder="PIN"
+            />
+          </div>
+          <div className="col-md-2">
+            <input
+              type="text"
+              value={filters.birthDate}
+              onChange={(e) => handleFilterChange(e, "birthDate")}
+              className="form-control"
+              placeholder="Birth Date"
+            />
+          </div>
+          <div className="col-md-2">
+            <button type="submit" className="btn btn-primary">
+              Submit Filter
+            </button>
+          </div>
+        </div>
       </form>
-      <Link to="/teachers/add">
-        <button>Add New Teacher</button>
+      <Link to="/teachers/add" className="btn btn-success mb-2">
+        Add New Teacher
       </Link>
       {teachers.length > 0 ? (
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <th>ID</th>
@@ -159,10 +169,18 @@ const TeacherMenu = () => {
                 <td>{teacher.email}</td>
                 <td>{teacher.birthDate}</td>
                 <td>
-                  <button onClick={() => handleUpdate(teacher)}>Update</button>
+                  <button
+                    onClick={() => handleUpdate(teacher)}
+                    className="btn btn-warning btn-sm"
+                  >
+                    Update
+                  </button>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(teacher.id)}>
+                  <button
+                    onClick={() => handleDelete(teacher.id)}
+                    className="btn btn-danger btn-sm"
+                  >
                     Delete
                   </button>
                 </td>
@@ -173,8 +191,8 @@ const TeacherMenu = () => {
       ) : (
         <p>No teachers found.</p>
       )}
-      <Link to="/">
-        <button>Back</button>
+      <Link to="/" className="btn btn-secondary">
+        Back
       </Link>
     </div>
   );

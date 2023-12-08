@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const UpdateTeacherForm = ({}) => {
+const UpdateTeacherForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   console.log("UpdateTeacherForm location:", location);
@@ -69,61 +69,64 @@ const UpdateTeacherForm = ({}) => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Update Teacher</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
+        <div className="mb-3">
+          <label className="form-label">First Name:</label>
           <input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          Last Name:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Last Name:</label>
           <input
             type="text"
             name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          PIN:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">PIN:</label>
           <input
             type="text"
             name="pin"
             value={formData.pin}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          Email:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Email:</label>
           <input
             type="text"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          Birth Date:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Birth Date:</label>
           <input
             type="date"
             name="birthDate"
             value={formData.birthDate}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <button type="submit">Update Teacher</button>
-        <button type="button" onClick={handleCancel}>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Update Teacher
+        </button>
+        <button type="button" onClick={handleCancel} className="btn btn-secondary ms-2">
           Cancel
         </button>
       </form>

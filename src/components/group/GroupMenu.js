@@ -89,20 +89,30 @@ const GroupMenu = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Group Menu</h2>
-      <form onSubmit={handleFilterSubmit}>
-        <label>
-          Group Number:
-          <input type="text" name="filter" />
-        </label>
-        <button type="submit">Submit Filter</button>
+      <form onSubmit={handleFilterSubmit} className="mb-3">
+        <div className="row g-3">
+          <div className="col-md-10">
+            <input
+              type="text"
+              className="form-control"
+              name="filter"
+              placeholder="Group Number"
+            />
+          </div>
+          <div className="col-md-2">  
+            <button type="submit" className="btn btn-primary">
+              Submit Filter
+            </button>
+          </div>
+        </div>
       </form>
-      <Link to="/groups/add">
-        <button>Add New Group</button>
+      <Link to="/groups/add" className="btn btn-success mb-3">
+        Add New Group
       </Link>
       {groups.length > 0 ? (
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <th>ID</th>
@@ -122,23 +132,44 @@ const GroupMenu = () => {
                 <td>{group.groupName}</td>
                 <td>{group.groupNumber}</td>
                 <td>
-                  <button onClick={() => handleUpdate(group)}>Update</button>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => handleUpdate(group)}
+                  >
+                    Update
+                  </button>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(group.id)}>Delete</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(group.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
                 <td>
-                  <button onClick={() => handleAddStudents(group)}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleAddStudents(group)}
+                  >
                     Add Students
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => handleAddTeachers(group)}>
+                  <button
+                    className="btn btn-info"
+                    onClick={() => handleAddTeachers(group)}
+                  >
                     Add Teachers
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => handleDetails(group)}>Details</button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => handleDetails(group)}
+                  >
+                    Details
+                  </button>
                 </td>
               </tr>
             ))}
@@ -147,8 +178,8 @@ const GroupMenu = () => {
       ) : (
         <p>No groups found.</p>
       )}
-      <Link to="/">
-        <button>Back</button>
+      <Link to="/" className="btn btn-secondary">
+        Back
       </Link>
     </div>
   );

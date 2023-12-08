@@ -37,7 +37,7 @@ const AddGroupForm = () => {
         console.log('Group added successfully!');
         setError(null);
         setSuccessMessage('Group added successfully!');
-      } else if (response.status === 400){
+      } else if (response.status === 400) {
         setSuccessMessage(null);
         const errorResponse = await response.json();
         const { errors } = errorResponse;
@@ -55,25 +55,39 @@ const AddGroupForm = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Add New Group</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+      {error && <p className="text-danger">{error}</p>}
+      {successMessage && <p className="text-success">{successMessage}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
-          Group Name:
-          <input type="text" name="groupName" value={formData.groupName} onChange={handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Group Number:
-          <input type="number" name="groupNumber" value={formData.groupNumber} onChange={handleInputChange} />
-        </label>
-        <br />
-        <button type="submit">Add Group</button>
+        <div className="mb-3">
+          <label className="form-label">Group Name:</label>
+          <input
+            type="text"
+            name="groupName"
+            value={formData.groupName}
+            onChange={handleInputChange}
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Group Number:</label>
+          <input
+            type="number"
+            name="groupNumber"
+            value={formData.groupNumber}
+            onChange={handleInputChange}
+            className="form-control"
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Add Group
+        </button>
       </form>
-      <Link to="/groups">
-        <button>Back</button>
+      <Link to="/groups" className="btn btn-secondary mt-3">
+        Back
       </Link>
     </div>
   );

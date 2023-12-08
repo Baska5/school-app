@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AddStudentForm = () => {
   const [formData, setFormData] = useState({
@@ -61,66 +62,64 @@ const AddStudentForm = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Add New Student</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+      {error && <p className="text-danger">{error}</p>}
+      {successMessage && <p className="text-success">{successMessage}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
+        <div className="mb-3">
+          <label className="form-label">First Name:</label>
           <input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          Last Name:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Last Name:</label>
           <input
             type="text"
             name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          PIN:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">PIN:</label>
           <input
             type="text"
             name="pin"
             value={formData.pin}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          Email:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Email:</label>
           <input
             type="text"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          Birth Date:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Birth Date:</label>
           <input
             type="date"
             name="birthDate"
             value={formData.birthDate}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <button type="submit">Add Student</button>
+        </div>
+        <button type="submit" className="btn btn-primary">Add Student</button>
       </form>
-      <Link to="/students">
-        <button>Back</button>
-      </Link>
+      <Link to="/students" className="btn btn-secondary mt-3">Back</Link>
     </div>
   );
 };

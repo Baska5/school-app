@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const GroupDetailsMenu = () => {
@@ -31,7 +31,7 @@ const GroupDetailsMenu = () => {
 
   const handleRemoveTeacher = async (teacherId) => {
     const shouldDelete = window.confirm(
-      "Are you sure you want to remove this teacher from group?"
+      "Are you sure you want to remove this teacher from the group?"
     );
     if (!shouldDelete) {
       return;
@@ -55,7 +55,7 @@ const GroupDetailsMenu = () => {
 
   const handleRemoveStudent = async (studentId) => {
     const shouldDelete = window.confirm(
-      "Are you sure you want to remove this student from group?"
+      "Are you sure you want to remove this student from the group?"
     );
     if (!shouldDelete) {
       return;
@@ -78,13 +78,13 @@ const GroupDetailsMenu = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>{`Group - ${groupData.groupName}`}</h2>
 
-      <section>
+      <section className="mb-4">
         <h3>Teachers</h3>
         {teachers.length > 0 ? (
-          <table>
+          <table className="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -106,7 +106,10 @@ const GroupDetailsMenu = () => {
                   <td>{teacher.email}</td>
                   <td>{teacher.birthDate}</td>
                   <td>
-                    <button onClick={() => handleRemoveTeacher(teacher.id)}>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleRemoveTeacher(teacher.id)}
+                    >
                       Remove
                     </button>
                   </td>
@@ -122,7 +125,7 @@ const GroupDetailsMenu = () => {
       <section>
         <h3>Students</h3>
         {students.length > 0 ? (
-          <table>
+          <table className="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -144,7 +147,10 @@ const GroupDetailsMenu = () => {
                   <td>{student.email}</td>
                   <td>{student.birthDate}</td>
                   <td>
-                    <button onClick={() => handleRemoveStudent(student.id)}>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleRemoveStudent(student.id)}
+                    >
                       Remove
                     </button>
                   </td>
@@ -156,8 +162,8 @@ const GroupDetailsMenu = () => {
           <p>No students found for this group.</p>
         )}
       </section>
-      <Link to="/groups">
-        <button>Back</button>
+      <Link to="/groups" className="btn btn-secondary mt-3">
+        Back
       </Link>
     </div>
   );

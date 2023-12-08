@@ -91,46 +91,54 @@ const EnrollStudentsMenu = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Add Students to Group - {groupData.groupName}</h2>
-      <form onSubmit={handleFilterSubmit}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            value={filters.firstName}
-            onChange={(e) => handleFilterChange(e, "firstName")}
-          />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            value={filters.lastName}
-            onChange={(e) => handleFilterChange(e, "lastName")}
-          />
-        </label>
-        <label>
-          PIN:
-          <input
-            type="text"
-            value={filters.pin}
-            onChange={(e) => handleFilterChange(e, "pin")}
-          />
-        </label>
-        <label>
-          Birth Date:
-          <input
-            type="text"
-            value={filters.birthDate}
-            onChange={(e) => handleFilterChange(e, "birthDate")}
-          />
-        </label>
-        <button type="submit">Submit Filter</button>
+      <form onSubmit={handleFilterSubmit} className="mb-3">
+        <div className="row">
+          <div className="col-md-3">
+            <label className="form-label">First Name:</label>
+            <input
+              type="text"
+              value={filters.firstName}
+              onChange={(e) => handleFilterChange(e, "firstName")}
+              className="form-control"
+            />
+          </div>
+          <div className="col-md-3">
+            <label className="form-label">Last Name:</label>
+            <input
+              type="text"
+              value={filters.lastName}
+              onChange={(e) => handleFilterChange(e, "lastName")}
+              className="form-control"
+            />
+          </div>
+          <div className="col-md-3">
+            <label className="form-label">PIN:</label>
+            <input
+              type="text"
+              value={filters.pin}
+              onChange={(e) => handleFilterChange(e, "pin")}
+              className="form-control"
+            />
+          </div>
+          <div className="col-md-3">
+            <label className="form-label">Birth Date:</label>
+            <input
+              type="text"
+              value={filters.birthDate}
+              onChange={(e) => handleFilterChange(e, "birthDate")}
+              className="form-control"
+            />
+          </div>
+        </div>
+        <button type="submit" className="btn btn-primary mt-2">
+          Submit Filter
+        </button>
       </form>
       {students.length > 0 ? (
         <div>
-          <table>
+          <table className="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -139,7 +147,7 @@ const EnrollStudentsMenu = () => {
                 <th>PIN</th>
                 <th>Email</th>
                 <th>Birth Date</th>
-                <th></th>
+                <th>Select</th>
               </tr>
             </thead>
             <tbody>
@@ -165,6 +173,7 @@ const EnrollStudentsMenu = () => {
           <button
             onClick={handleBatchEnroll}
             disabled={selectedStudents.length === 0}
+            className="btn btn-success"
           >
             Add Students
           </button>
@@ -172,8 +181,8 @@ const EnrollStudentsMenu = () => {
       ) : (
         <p>No students found.</p>
       )}
-      <Link to="/groups">
-        <button>Back</button>
+      <Link to="/groups" className="btn btn-secondary">
+        Back
       </Link>
     </div>
   );

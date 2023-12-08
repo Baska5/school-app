@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const UpdateGroupForm = ({}) => {
+const UpdateGroupForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { groupData } = location.state || {};
@@ -62,31 +62,34 @@ const UpdateGroupForm = ({}) => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Update Group</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="text-danger">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
-          Group Name:
+        <div className="mb-3">
+          <label className="form-label">Group Name:</label>
           <input
             type="text"
             name="groupName"
             value={formData.groupName}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <br />
-        <label>
-          Group Number:
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Group Number:</label>
           <input
             type="number"
             name="groupNumber"
             value={formData.groupNumber}
             onChange={handleInputChange}
+            className="form-control"
           />
-        </label>
-        <button type="submit">Update Group</button>
-        <button type="button" onClick={handleCancel}>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Update Group
+        </button>
+        <button type="button" onClick={handleCancel} className="btn btn-secondary">
           Cancel
         </button>
       </form>

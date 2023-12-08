@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StudentMenu = () => {
   const [students, setStudents] = useState([]);
@@ -95,48 +96,58 @@ const StudentMenu = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Student Menu</h2>
-      <form onSubmit={handleFilterSubmit}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            value={filters.firstName}
-            onChange={(e) => handleFilterChange(e, "firstName")}
-          />
-        </label>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            value={filters.lastName}
-            onChange={(e) => handleFilterChange(e, "lastName")}
-          />
-        </label>
-        <label>
-          PIN:
-          <input
-            type="text"
-            value={filters.pin}
-            onChange={(e) => handleFilterChange(e, "pin")}
-          />
-        </label>
-        <label>
-          Birth Date:
-          <input
-            type="text"
-            value={filters.birthDate}
-            onChange={(e) => handleFilterChange(e, "birthDate")}
-          />
-        </label>
-        <button type="submit">Submit Filter</button>
+      <form onSubmit={handleFilterSubmit} className="mb-4">
+        <div className="row g-3">
+          <div className="col-md-3">
+            <input
+              type="text"
+              className="form-control"
+              value={filters.firstName}
+              onChange={(e) => handleFilterChange(e, "firstName")}
+              placeholder="First Name"
+            />
+          </div>
+          <div className="col-md-3">
+            <input
+              type="text"
+              className="form-control"
+              value={filters.lastName}
+              onChange={(e) => handleFilterChange(e, "lastName")}
+              placeholder="Last Name"
+            />
+          </div>
+          <div className="col-md-2">
+            <input
+              type="text"
+              className="form-control"
+              value={filters.pin}
+              onChange={(e) => handleFilterChange(e, "pin")}
+              placeholder="PIN"
+            />
+          </div>
+          <div className="col-md-2">
+            <input
+              type="text"
+              className="form-control"
+              value={filters.birthDate}
+              onChange={(e) => handleFilterChange(e, "birthDate")}
+              placeholder="Birth Date"
+            />
+          </div>
+          <div className="col-md-2">
+            <button type="submit" className="btn btn-primary">
+              Submit Filter
+            </button>
+          </div>
+        </div>
       </form>
-      <Link to="/students/add">
-        <button>Add New Student</button>
+      <Link to="/students/add" className="btn btn-success">
+        Add New Student
       </Link>
       {students.length > 0 ? (
-        <table>
+        <table className="table mt-3">
           <thead>
             <tr>
               <th>ID</th>
@@ -159,10 +170,18 @@ const StudentMenu = () => {
                 <td>{student.email}</td>
                 <td>{student.birthDate}</td>
                 <td>
-                  <button onClick={() => handleUpdate(student)}>Update</button>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => handleUpdate(student)}
+                  >
+                    Update
+                  </button>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(student.id)}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(student.id)}
+                  >
                     Delete
                   </button>
                 </td>
@@ -173,8 +192,8 @@ const StudentMenu = () => {
       ) : (
         <p>No students found.</p>
       )}
-      <Link to="/">
-        <button>Back</button>
+      <Link to="/" className="btn btn-primary">
+        Back
       </Link>
     </div>
   );
